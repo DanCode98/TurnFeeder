@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/main.css">
+
+
+</head>
+
+<body>
+    <div class="formulario-contenedor">
+        <!-- Logo -->
+        <div class="logo-contenedor">
+            <img src="../assets/img/logo.jpeg" alt="Logo" class="logo">
+        </div>
+
+        <!-- FORMULARIO DE LOGIN -->
+        <div class="formulario-titulo">
+            <h2>Iniciar Sesión</h2>
+            <p>Ingresa tus credenciales para continuar</p>
+        </div>
+
+        <form id="formLogin">
+            <div class="form-group">
+                <label for="loginUsuario" class="form-label">Usuario</label>
+                <input type="text" class="form-control" id="loginUsuario" placeholder="Ingresa tu usuario" required>
+            </div>
+
+            <div class="form-group">
+                <label for="loginPassword" class="form-label">Contraseña</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="loginPassword" placeholder="Ingresa tu contraseña"
+                        required>
+                    <button class="btn btn-outline-secondary" type="button" id="toggleLoginPassword">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="forgot-password">
+                <a href="#">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="recordarme">
+                <label class="form-check-label" for="recordarme">
+                    Recordarme
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-enviar">Iniciar Sesión</button>
+        </form>
+
+        <div class="toggle-form">
+            ¿No tienes cuenta? <a href="register.html" class="toggle-link">Regístrate aquí</a>
+        </div>
+    </div>
+
+
+    <script>
+        // Mostrar/ocultar contraseña con Bootstrap
+        const toggleLoginPassword = document.getElementById('toggleLoginPassword');
+        const loginPassword = document.getElementById('loginPassword');
+
+        toggleLoginPassword.addEventListener('click', function () {
+            const type = loginPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            loginPassword.setAttribute('type', type);
+
+            // Cambiar el icono
+            const icon = this.querySelector('i');
+            icon.classList.toggle('bi-eye');
+            icon.classList.toggle('bi-eye-slash');
+        });
+
+        // Manejo del formulario de login
+        document.getElementById('formLogin').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const usuario = document.getElementById('loginUsuario').value;
+            const password = loginPassword.value;
+            const recordar = document.getElementById('recordarme').checked;
+
+            // Aquí puedes agregar tu lógica de autenticación
+            console.log('Login:', { usuario, password, recordar });
+
+            // Ejemplo de validación básica
+            if (usuario && password) {
+                alert('¡Login exitoso! Usuario: ' + usuario);
+                // Redirigir a la página principal
+                // window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+
+</html>

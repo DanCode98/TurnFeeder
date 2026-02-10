@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Cuenta</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/main.css">
+
+
+</head>
+
+<body>
+    <div class="formulario-contenedor">
+        <!-- Logo -->
+        <div class="logo-contenedor">
+            <img src="../assets/img/logo.jpeg" alt="Logo" class="logo">
+        </div>
+
+        <!-- FORMULARIO DE REGISTRO -->
+        <div class="formulario-titulo">
+            <h2>Crear Cuenta</h2>
+            <p>Completa tus datos para registrarte</p>
+        </div>
+
+        <form id="formRegistro" novalidate>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="nombres" class="form-label">Nombre(s) <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="nombres" placeholder="Nombre" required>
+                        <div class="invalid-feedback">Por favor ingresa tu nombre.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="apellidos" class="form-label">Apellidos <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" required>
+                        <div class="invalid-feedback">Por favor ingresa tus apellidos.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nombreUsuario" class="form-label">Nombre de Usuario <span
+                        class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="nombreUsuario" placeholder="Usuario único" minlength="4"
+                    required>
+                <div class="invalid-feedback">El usuario debe tener al menos 4 caracteres.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="correo" class="form-label">Correo Electrónico <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" id="correo" placeholder="ejemplo@correo.com" required>
+                <div class="invalid-feedback">Por favor ingresa un correo válido.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono" class="form-label">Número de Teléfono <span class="text-danger">*</span></label>
+                <input type="tel" class="form-control" id="telefono" placeholder="10 dígitos" pattern="[0-9]{10}"
+                    maxlength="10" required>
+                <div class="invalid-feedback">El teléfono debe tener 10 dígitos.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Contraseña <span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="password" placeholder="Mínimo 8 caracteres"
+                        minlength="8" required>
+                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                <div class="password-strength">
+                    <div class="password-strength-bar" id="strengthBar"></div>
+                </div>
+                <div class="invalid-feedback">La contraseña debe tener al menos 8 caracteres.</div>
+                <small class="text-muted">Usa mayúsculas, minúsculas, números y símbolos.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmarPassword" class="form-label">Confirmar Contraseña <span
+                        class="text-danger">*</span></label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="confirmarPassword"
+                        placeholder="Repite la contraseña" minlength="8" required>
+                    <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                <div class="invalid-feedback" id="passwordMatchFeedback">Las contraseñas deben coincidir.</div>
+            </div>
+
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="terminos" required>
+                <label class="form-check-label" for="terminos">
+                    Acepto los <a href="#" class="toggle-link">términos y condiciones</a> <span
+                        class="text-danger">*</span>
+                </label>
+                <div class="invalid-feedback">Debes aceptar los términos y condiciones.</div>
+            </div>
+
+            <button type="submit" class="btn btn-enviar">Registrar</button>
+        </form>
+
+        <div class="toggle-form">
+            ¿Ya tienes cuenta? <a href="login.html" class="toggle-link">Inicia sesión aquí</a>
+        </div>
+    </div>
+
+
+    <script>
+        // Mostrar/ocultar contraseña con Bootstrap
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        const confirmarPassword = document.getElementById('confirmarPassword');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+
+            // Cambiar el icono
+            const icon = this.querySelector('i');
+            icon.classList.toggle('bi-eye');
+            icon.classList.toggle('bi-eye-slash');
+        });
+
+        toggleConfirmPassword.addEventListener('click', function () {
+            const type = confirmarPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmarPassword.setAttribute('type', type);
+
+            // Cambiar el icono
+            const icon = this.querySelector('i');
+            icon.classList.toggle('bi-eye');
+            icon.classList.toggle('bi-eye-slash');
+        });
+
+        // Verificar fuerza de contraseña
+        const strengthBar = document.getElementById('strengthBar');
+
+        passwordInput.addEventListener('input', function () {
+            const password = this.value;
+            let strength = 0;
+
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+            if (password.match(/[0-9]/)) strength++;
+            if (password.match(/[^a-zA-Z0-9]/)) strength++;
+
+            strengthBar.className = 'password-strength-bar';
+
+            if (strength <= 1) {
+                strengthBar.classList.add('weak');
+            } else if (strength <= 3) {
+                strengthBar.classList.add('medium');
+            } else {
+                strengthBar.classList.add('strong');
+            }
+        });
+
+        // Validar que las contraseñas coincidan
+        confirmarPassword.addEventListener('input', function () {
+            if (this.value !== passwordInput.value) {
+                this.setCustomValidity('Las contraseñas no coinciden');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        // Validar solo números en teléfono
+        document.getElementById('telefono').addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Manejo del formulario de registro
+        document.getElementById('formRegistro').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Validación de Bootstrap
+            if (!this.checkValidity()) {
+                e.stopPropagation();
+                this.classList.add('was-validated');
+                return;
+            }
+
+            const password = passwordInput.value;
+            const confirmPassword = confirmarPassword.value;
+
+            // Validar que las contraseñas coincidan
+            if (password !== confirmPassword) {
+                confirmarPassword.classList.add('is-invalid');
+                return;
+            }
+
+            const datosRegistro = {
+                nombres: document.getElementById('nombres').value,
+                apellidos: document.getElementById('apellidos').value,
+                nombreUsuario: document.getElementById('nombreUsuario').value,
+                correo: document.getElementById('correo').value,
+                telefono: document.getElementById('telefono').value,
+                password: password
+            };
+
+            // Aquí puedes agregar tu lógica de registro
+            console.log('Registro:', datosRegistro);
+            alert('¡Registro exitoso! Usuario: ' + datosRegistro.nombreUsuario);
+
+            // Redirigir al login después del registro
+            // window.location.href = 'login.html';
+        });
+    </script>
+</body>
+
+</html>
